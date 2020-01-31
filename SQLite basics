@@ -1,0 +1,8 @@
+fidel@DESKTOP-ET1PCKP MINGW64 ~
+$ fidel@DESKTOP-ET1PCKP MINGW64 ~/Desktop/learn/sql-population-queries-starting
+
+$ sqlite3
+
+#abrir base de datos:
+
+sqlite> .open db.sqlite
