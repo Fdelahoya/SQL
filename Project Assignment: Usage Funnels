@@ -9,3 +9,19 @@ SELECT question,
       COUNT(DISTINCT user_id)
 FROM survey 
 GROUP BY question;
+
+--5)
+SELECT DISTINCT q.user_id,
+            CASE WHEN h.user_id IS NOT NULL THEN 'true'  /*in the original solution it yields 1`s and 0´s instead TRUE/FALSE */
+            ELSE 'false'
+            END AS 'is_home_try_on',
+            h.number_of_pairs,
+            CASE WHEN p.user_id IS NOT NULL THEN 'true'
+            ELSE 'false'
+            END AS 'is_purchase'
+FROM quiz AS 'q'
+LEFT JOIN home_try_on AS 'h'
+  ON h.user_id = q.user_id
+LEFT JOIN purchase AS 'p'
+  ON p.user_id = q.user_id
+  LIMIT 10;
