@@ -1,0 +1,11 @@
+--1)
+SELECT *
+FROM survey
+LIMIT 10;
+
+--2)
+
+SELECT question,
+      COUNT(DISTINCT user_id)
+FROM survey 
+GROUP BY question;
