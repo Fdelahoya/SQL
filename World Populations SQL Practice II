@@ -14,7 +14,7 @@ SELECT SUM(population_years.population)
 FROM countries 
 JOIN population_years 
  ON countries.id=population_years.country_id 
-WHERE countries.continent=’Oceania’ AND population_years.year=2005;
+WHERE countries.continent='Oceania' AND population_years.year=2005;
 32.66417
 
 5.
@@ -24,7 +24,7 @@ SELECT AVG(population_years.population)
 FROM countries
 JOIN population_years 
  ON countries.id=population_years.country_id 
-WHERE countries.continent=’South America’ AND population_years.year=2003;
+WHERE countries.continent='South America' AND population_years.year=2003;
 25.8906514285714
 
 6.
@@ -48,7 +48,7 @@ SELECT AVG(population_years.population),
 FROM countries
 JOIN population_years 
  ON countries.id=population_years.country_id 
-WHERE countries.name=’Poland’;
+WHERE countries.name='Poland';
 38.5606790909091|Poland
 
 8.
@@ -58,7 +58,7 @@ SELECT DISTINCT countries.name
 FROM countries
 JOIN population_years 
  ON countries.id=population_years.country_id 
-WHERE countries.name LIKE ‘%The%’;
+WHERE countries.name LIKE '%The%';
 3
 Bahamas, The
 Netherlands
