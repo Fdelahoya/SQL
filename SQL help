@@ -1,6 +1,9 @@
 # hello_world
-a place where you store ideas, resources, or even share and discuss things with others.
-This is my first project in GitHub, I want to learn how to code, specifically to help organizations to better understand their data, usng tools like Python, pandas, nunpy, splunk..
+Just some basic notions of SQL.
+
+STYLE GUIDE
+https://s3.amazonaws.com/codecademy-content/programs/learn-sql-from-scratch/SQL+Style+Guide+for+Analyze+Data+with+SQL.pdf
+
 DATA MANIPULATION: 
 https://www.codecademy.com/learn/learn-sql/modules/learn-sql-manipulation/reference
 
@@ -16,22 +19,5 @@ https://www.sqlite.org/lang_datefunc.html
 
 MULTIPLE TABLES
 https://www.codecademy.com/learn/learn-sql/modules/learn-sql-multiple-tables/reference
+https://s3.amazonaws.com/codecademy-content/courses/sql-intensive/reference-guide-multiple-tables.pdf
 
-CASE
- SELECT premium_users.user_id,
-  months.months,
-  CASE
-    WHEN (
-      premium_users.purchase_date <= months.months
-      )
-      AND
-      (
-        premium_users.cancel_date >= months.months
-        OR
-        premium_users.cancel_date IS NULL
-      )
-    THEN 'active'
-    ELSE 'not_active'
-  END AS 'status'
-FROM premium_users
-CROSS JOIN months;
