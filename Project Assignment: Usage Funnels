@@ -45,4 +45,57 @@ SELECT COUNT(*) AS 'total_quiz',
   FROM funnels
   ;
   
+  --6B
+
+WITH funnels AS (SELECT DISTINCT q.user_id ,
+   h.user_id IS NOT NULL AS 'is_home_try_on',
+   h.number_of_pairs,
+   p.user_id IS NOT NULL AS 'is_purchase'
+FROM quiz q
+                
+LEFT JOIN home_try_on h
+   ON q.user_id = h.user_id
+LEFT JOIN purchase p
+   ON p.user_id = q.user_id
+
+)
+
+--conversions trying on 3 pairs
+   SELECT   COUNT(*) AS 'total_quiz',
+        COUNT(CASE WHEN number_of_pairs='3 pairs'
+        THEN user_id END) AS 'People_trying_3pairs',
+        SUM(CASE WHEN number_of_pairs='3 pairs'
+        THEN is_purchase END) AS 'total_purchase_3pairs',
+        1.0*COUNT(CASE WHEN number_of_pairs='3 pairs'
+        THEN user_id END)/COUNT(*) AS '% to try_on_3pairs',
+        1.0*SUM(CASE WHEN number_of_pairs='3 pairs'
+        THEN is_purchase END)/COUNT(CASE
+        WHEN number_of_pairs='3 pairs'THEN user_id END) AS '%try_on3_to_purchase'
+  FROM funnels;
+  
+--conversions trying on 5 pairs  
+ WITH funnels AS (SELECT DISTINCT q.user_id ,
+   h.user_id IS NOT NULL AS 'is_home_try_on',
+   h.number_of_pairs,
+   p.user_id IS NOT NULL AS 'is_purchase'
+FROM quiz q
+                
+LEFT JOIN home_try_on h
+   ON q.user_id = h.user_id
+LEFT JOIN purchase p
+   ON p.user_id = q.user_id
+
+)
+
+ SELECT   COUNT(*) AS 'total_quiz',
+        COUNT(CASE WHEN number_of_pairs='5 pairs'
+        THEN user_id END) AS 'People_trying_5pairs',
+        SUM(CASE WHEN number_of_pairs='5 pairs'
+        THEN is_purchase END) AS 'total_purchase_5pairs',
+        1.0*COUNT(CASE WHEN number_of_pairs='5 pairs'
+        THEN user_id END)/COUNT(*) AS '% to try_on_5pairs',
+        1.0*SUM(CASE WHEN number_of_pairs='5 pairs'
+        THEN is_purchase END)/COUNT(CASE
+        WHEN number_of_pairs='5 pairs'THEN user_id END) AS '%try_on5_to_purchase'
+  FROM funnels;
   
