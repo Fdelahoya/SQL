@@ -5,10 +5,105 @@ What pages are on their website?
 2. What is the user journey?
 
 How many first touches is each campaign responsible for?
+WITH first_touch AS (
+    SELECT user_id,
+        MIN(timestamp) as first_touch_at
+    FROM page_visits
+    GROUP BY user_id)
+SELECT ft.user_id,
+    COUNT(ft.first_touch_at),
+    pv.utm_source,
+		pv.utm_campaign
+FROM first_touch ft
+JOIN page_visits pv
+    ON ft.user_id = pv.user_id
+    AND ft.first_touch_at = pv.timestamp
+GROUP BY 4;
+
+user_id	COUNT(ft.first_touch_at)	utm_source	utm_campaign
+99684	169	google	cool-tshirts-search
+99933	612	nytimes	getting-to-know-cool-tshirts
+99990	622	medium	interview-with-cool-tshirts-founder
+99765	576	buzzfeed	ten-crazy-cool-tshirts-facts
+
 How many last touches is each campaign responsible for?
+
+WITH last_touch AS (
+    SELECT user_id,
+        MIN(timestamp) as last_touch_at
+    FROM page_visits
+    GROUP BY user_id)
+SELECT lt.user_id,
+    COUNT(lt.last_touch_at),
+    pv.utm_source,
+		pv.utm_campaign
+FROM last_touch lt
+JOIN page_visits pv
+    ON lt.user_id = pv.user_id
+    AND lt.last_touch_at = pv.timestamp
+GROUP BY 4;
+
+user_id	COUNT(lt.last_touch_at)	utm_source	utm_campaign
+99684	169	google	cool-tshirts-search
+99933	612	nytimes	getting-to-know-cool-tshirts
+99990	622	medium	interview-with-cool-tshirts-founder
+99765	576	buzzfeed	ten-crazy-cool-tshirts-facts
+
+
 How many visitors make a purchase?
+SELECT COUNT(*)
+FROM page_visits
+WHERE page_name = '4 - purchase';
+
+COUNT(*)
+361
+
+
 How many last touches on the purchase page is each campaign responsible for?
+WITH last_touch AS (
+    SELECT user_id,
+        MIN(timestamp) as last_touch_at
+    FROM page_visits
+WHERE page_name = '4 - purchase'
+    GROUP BY user_id)
+SELECT lt.user_id,
+    COUNT(lt.last_touch_at),
+    pv.utm_source,
+		pv.utm_campaign
+FROM last_touch lt
+JOIN page_visits pv
+    ON lt.user_id = pv.user_id
+    AND lt.last_touch_at = pv.timestamp;
+
+361
+
+
 What is the typical user journey?
 3. Optimize the campaign budget.
 
 CoolTShirts can re-invest in 5 campaigns. Which should they pick and why?
+WITH last_touch AS (
+    SELECT user_id,
+        MIN(timestamp) as last_touch_at
+    FROM page_visits
+WHERE page_name = '4 - purchase'
+    GROUP BY user_id)
+SELECT lt.user_id,
+    COUNT(lt.last_touch_at),
+    pv.utm_source,
+		pv.utm_campaign
+FROM last_touch lt
+JOIN page_visits pv
+    ON lt.user_id = pv.user_id
+    AND lt.last_touch_at = pv.timestamp
+group by 4
+order by 2 DESC
+;
+
+ser_id	COUNT(lt.last_touch_at)	utm_source	utm_campaign
+99933	115	email	weekly-newsletter
+99897	113	facebook	retargetting-ad
+99285	54	email	retargetting-campaign
+94567	52	google	paid-search
+92172	9	nytimes	getting-to-know-cool-tshirts
+
