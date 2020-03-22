@@ -1,0 +1,26 @@
+6. The player column contains the source the user is using to view the stream (site, iphone, android, etc).
+Create a list of players and their number of streamers.
+
+SELECT COUNT(*) AS 'total players',
+    player
+    FROM stream
+    GROUP BY player
+    ORDER BY 1 DESC ;
+
+7.
+Create a new column named genre for each of the games.
+Group the games into their genres: Multiplayer Online Battle Arena (MOBA), First Person Shooter (FPS), Survival, and Other.
+
+SELECT game, genre=
+    CASE 
+        WHEN game = 'League of Legends' THEN 'MOBA'
+        WHEN game = 'Dota 2' THEN 'MOBA'
+        WHEN game = 'Heroes of the storm' THEN 'MOBA'
+        WHEN game = 'Counter-Strike: Global Offensive' THEN 'FPS'
+        WHEN game = 'DayZ' THEN 'Survival'
+        WHEN game = 'ARK: Survival Evolved' THEN 'Survival'
+        ELSE 'Other'
+    END
+FROM stream
+GROUP BY game
+ORDER BY genre;
