@@ -24,3 +24,27 @@ SELECT game, genre=
 FROM stream
 GROUP BY game
 ORDER BY genre;
+
+9.
+SQLite comes with a strftime() function - a very powerful function that allows you to return a formatted date.
+It takes two arguments:
+strftime(format, column)
+Let’s test this function out:
+
+    SELECT time,
+       strftime('%S', time)
+    FROM stream
+    GROUP BY 1
+    LIMIT 20;
+    
+What do you think this does? Open the hint if you’d like to learn more.
+
+SELECT  TOP (10) DATEPART (second,time)
+FROM stream 
+;
+
+10.
+Okay, now we understand how strftime() works. Let’s write a query that returns three columns:
+The hours of the time column
+The view count for each hour
+Lastly, filter the result with only the users in your country using a WHERE clause.
