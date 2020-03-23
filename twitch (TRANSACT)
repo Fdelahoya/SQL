@@ -48,3 +48,13 @@ Okay, now we understand how strftime() works. Let’s write a query that returns
 The hours of the time column
 The view count for each hour
 Lastly, filter the result with only the users in your country using a WHERE clause.
+--hecho con SQlite
+
+
+SELECT time,
+   strftime('%H', time) AS hour,
+   COUNT(*) AS Viewers
+FROM stream
+WHERE country = 'ES'
+GROUP BY 2
+ORDER BY 3 DESC;
